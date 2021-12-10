@@ -38,7 +38,7 @@
                   {{ keyword }}
                 </li>
               </ul>
-              <img :src="floor.imgUrl" />
+              <img v-lazy="floor.imgUrl" />
             </div>
             <div class="floorBanner">
               <div class="swiper-container" id="floor1Swiper">
@@ -48,7 +48,7 @@
                     v-for="item in floor.carouselList"
                     :key="item.id"
                   >
-                    <img :src="item.imageUrl" />
+                    <img v-lazy="item.imageUrl" />
                   </div>
                 </div>
                 <!-- 如果需要分页器 -->
@@ -62,22 +62,22 @@
             <div class="split">
               <span class="floor-x-line"></span>
               <div class="floor-conver-pit">
-                <img :src="floor.recommendList[0]" />
+                <img v-lazy="floor.recommendList[0]" />
               </div>
               <div class="floor-conver-pit">
-                <img :src="floor.recommendList[1]" />
+                <img v-lazy="floor.recommendList[1]" />
               </div>
             </div>
             <div class="split center">
-              <img :src="floor.bigImg" />
+              <img v-lazy="floor.bigImg" />
             </div>
             <div class="split">
               <span class="floor-x-line"></span>
               <div class="floor-conver-pit">
-                <img :src="floor.recommendList[2]" />
+                <img v-lazy="floor.recommendList[2]" />
               </div>
               <div class="floor-conver-pit">
-                <img :src="floor.recommendList[3]" />
+                <img v-lazy="floor.recommendList[3]" />
               </div>
             </div>
           </div>

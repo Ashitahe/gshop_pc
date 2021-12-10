@@ -23,7 +23,7 @@ const actions = {
     async getCategoryList({commit}){
         try {
             const res = await reqBaseCategoryList();
-            commit('REQ_CATEGORY_LIST',res.splice(0,15));
+            commit('REQ_CATEGORY_LIST',res.data.splice(0,15));
           } catch (err) {
             console.log('错误',err);
           }
@@ -31,7 +31,7 @@ const actions = {
     async getBannerList({commit}){
         try{
             const res = await reqBannerList();
-            commit('REQ_BANNERS',res);
+            commit('REQ_BANNERS',res.data);
         }catch(err){
             console.log('banner出错',err);
         }

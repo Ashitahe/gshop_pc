@@ -74,9 +74,9 @@
             <ul class="yui3-g">
               <li class="yui3-u-1-5" v-for="item in goodsList" :key="item.id">
                 <div class="list-wrap">
-                  <div class="p-img">
-                    <a href="javascript:;" target="_blank"
-                      ><img :src="item.defaultImg"
+                  <div class="p-img" >
+                    <a @click.prevent="toDetail(item.id)"
+                      ><img v-lazy="item.defaultImg"
                     /></a>
                   </div>
                   <div class="price">
@@ -86,14 +86,14 @@
                     </strong>
                   </div>
                   <div class="attr">
-                    <a target="_blank" href="javascript:;" :title="item.title"
+                    <a @click.prevent="toDetail(item.id)" :title="item.title"
                       >{{ item.title }}}</a
                     >
                   </div>
                   <div class="commit">
                     <i class="command">已有<span>2000</span>人评价</i>
                   </div>
-                  <div class="operate">
+                  <!-- <div class="operate">
                     <a
                       href="success-cart.html"
                       target="_blank"
@@ -103,7 +103,7 @@
                     <a href="javascript:void(0);" class="sui-btn btn-bordered"
                       >收藏</a
                     >
-                  </div>
+                  </div> -->
                 </div>
               </li>
             </ul>
@@ -169,12 +169,14 @@ export default {
     },
   },
   methods: {
-    // 给子组件触发搜索
-    // setPageNo(page) {
-    //   this.pageNo = page;
-    //   console.log("收到子组件数据", this.pageNo);
-    //   this.getProductList();
-    // },
+    // 设置跳转到详情页
+    toDetail(skuId){
+      const location = {
+        name:'detail',
+        params:{skuId}
+      }
+      this.$router.push(location);
+    },
 
     // 设置排序条件
     setOrder(orderFlag) {

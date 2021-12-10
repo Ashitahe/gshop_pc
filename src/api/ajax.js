@@ -1,6 +1,7 @@
 import axios from "axios";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import store from '@/store';
 
 // 配置进度条
 NProgress.configure({ showSpinner: false });
@@ -14,6 +15,20 @@ const service = axios.create({
 service.interceptors.request.use((config) => {
   // 请求进度条
   NProgress.start();
+  // 设置用户临时id
+  const userTempId = store.state.user.userTempId
+  config.headers.userTempId = userTempId;
+
+  // 若当前有token则讲token自动携带进请求头
+  const {token,userInfo:{userId}} = store.state.user;
+  if(token){
+    config.headers.token = token;
+  }
+  if(userId){
+    config.headers.userId = userId;
+  }
+
+  
   return config;
 });
 // 设置响应拦截器，处理返回数据
@@ -21,8 +36,8 @@ service.interceptors.response.use(
   (response) => {
     // 隐藏进度条
     NProgress.done();
-    if (response.data.message === "成功" && response.data.code === 200) {
-      return response.data.data;
+    if (response.status === 200) {
+      return response.data;
     } else {
       console.log(response);
       return Promise.reject(response.message);

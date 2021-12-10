@@ -5,21 +5,21 @@
       <div class="container">
         <div class="loginList">
           <p>尚品汇欢迎您！</p>
-          <p>
+          <p v-if="userInfo.name">
+            <span>{{ userInfo.nickName }}</span>
+            <a href="javascript:;" @click="logout" style="margin-left: 15px"
+              >退出</a
+            >
+          </p>
+          <p v-else>
             <span>请</span>
-            <a href="###">登录</a>
-            <a href="###" class="register">免费注册</a>
+            <router-link to="/login">登录</router-link>
+            <router-link to="/register" class="register">免费注册</router-link>
           </p>
         </div>
         <div class="typeList">
-          <a href="###">我的订单</a>
-          <a href="###">我的购物车</a>
-          <a href="###">我的尚品汇</a>
-          <a href="###">尚品汇会员</a>
-          <a href="###">企业采购</a>
-          <a href="###">关注尚品汇</a>
-          <a href="###">合作招商</a>
-          <a href="###">商家后台</a>
+          <router-link to="/center" >我的订单</router-link>
+          <router-link to="/shopcart">我的购物车</router-link>
         </div>
       </div>
     </div>
@@ -61,9 +61,9 @@ export default {
   },
   components: {},
   mounted() {
-    this.$bus.$on('clearKeyword',()=>{
-      this.keyword = '';
-    })
+    this.$bus.$on("clearKeyword", () => {
+      this.keyword = "";
+    });
   },
   methods: {
     search() {
@@ -75,11 +75,29 @@ export default {
         name: "search", // 路由条目的name
         query: this.$route.query,
       };
-      if (this.keyword){
+      if (this.keyword) {
         // 只有有数据时才携带params参数
-        location.params = {keyword: this.keyword}
+        location.params = { keyword: this.keyword };
       }
       this.$router.push(location);
+    },
+    logout() {
+      if (confirm("确定退出登录？")) {
+        this.$store
+          .dispatch("logout")
+          .then((result) => {
+            this.$router.push("/login");
+          })
+          .catch((err) => {
+            alert("退出登录失败");
+            console.log(err);
+          });
+      }
+    },
+  },
+  computed: {
+    userInfo() {
+      return this.$store.state.user.userInfo
     },
   },
 };

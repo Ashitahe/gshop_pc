@@ -162,10 +162,8 @@ export default {
       if (this.$route.name === "search") {
         this.$router.replace(location);
       } else {
-        console.log("走push");
         this.$router.push(location);
       }
-      console.log("我还没销毁");
       this.hideFirst();
     },
   },

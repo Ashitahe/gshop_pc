@@ -22,7 +22,7 @@ const actions = {
         try{
             // 数据回来之前先清空
             const res = await reqProduct(options);
-            commit('REQ_PRODUCTINFO',res);
+            commit('REQ_PRODUCTINFO',res.data);
         }catch(err){
             console.log('出错了',err);
         }
