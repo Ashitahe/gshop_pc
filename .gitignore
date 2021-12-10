@@ -1,6 +1,13 @@
 .DS_Store
 node_modules
-/dist
+
+# /dist
+/public
+yarn.lock
+babel.config.js
+package.json
+package-lock.json
+vue.config.js
 静态文件
 
 
